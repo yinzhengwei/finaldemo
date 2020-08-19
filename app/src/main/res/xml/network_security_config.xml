@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <base-config
+        cleartextTrafficPermitted="true"
+        tools:ignore="InsecureBaseConfiguration" >
+        <trust-anchors>
+            <certificates src="system"/>
+<!--            这里还可以添加本地CA证书目录，例如-->
+        </trust-anchors>
+    </base-config>
+<!--    <domain-config cleartextTrafficPermitted="true">-->
+<!--        <domain includeSubdomains="true">api.haitangshipin.com</domain>-->
+<!--    </domain-config>-->
+    <debug-overrides>
+        <trust-anchors>
+            <certificates
+                overridePins="true"
+                src="system" />
+            <!-- 主要是这行代码，放开这一行，才能抓包-->
+            <!--            <certificates-->
+            <!--                overridePins="true"-->
+            <!--                src="user" />-->
+        </trust-anchors>
+    </debug-overrides>
+</network-security-config>
