@@ -57,10 +57,12 @@ BaseRecyclerViewAdapterHelper库已在gradle中添加，可以直接通过自定
 
 
 11、sharePreference缓存
+
 项目中GmPlayPreferenceUtil是对SharePreference的封装，可以直接调用里面各种数据类型的保存、获取方法
 
 
 12、图片加载
+
 GlideLoadUtil.kt是对Glide的封装，支持imageVIew、textView、ViewGroup的内容图片加载，支持圆角和GIF方法等
 
 
