@@ -21,7 +21,7 @@ class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
 
     //临时地址，测试时需要替换，不然播放会报错
     val path =
-        "http://m10.music.126.net/20200820212826/366d320b8f7f089a8e1939a40d0b41f4/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3468353303/8879/27cd/8711/9663cdf4b0f7c98f5e1b1bbe16dbd3e9.mp3"
+        "http://music.163.com/song/media/outer/url?id=190072.mp3"
     var mediaPlayer = MediaPlayer()
 
     override fun getLayoutId() = R.layout.home_fragment
