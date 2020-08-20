@@ -1,4 +1,4 @@
-package cn.com.mediacenter.widget
+package cn.com.finaldemo.widget
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
-import cn.com.mediacenter.utils.NetUtil
+import cn.com.finaldemo.utils.NetUtil
 import java.io.File
 
 /**
