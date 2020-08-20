@@ -32,7 +32,7 @@ ViewModel需要继承自BaseViewModel并实现对应的方法
 
 6、下拉刷新
 
-swiperefreshlayout库已在gradle中添加，可以直接在布局文件中使用
+swiperefreshlayout库已在gradle中添加，可以直接通过CustomSwiperefreshlayout在布局文件中使用
 
 
 7、状态栏
@@ -74,3 +74,9 @@ ToastUtil类是对toast的封装，直接直接调用showToast显示toast提示
 14、网络状态判断
 
 NetUtil类是对网络状态的封装，可以直接调用获取网络状态是否可用
+
+
+15、WebView
+
+项目中的自定义控件CustomWebView.kt已经将webview需要初始化的属性全部定义好了，可以直接在xml使用，注意需要配合CustomApplication
+中的ApplicationHelper.fixWebViewDataDirectoryBug(this)一起使用

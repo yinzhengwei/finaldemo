@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 9fe45a4
+# pg_map_id: d0a85e7
 android.support.v4.app.INotificationSideChannel$Default -> android.support.v4.app.INotificationSideChannel$Default:
     14:14:void <init>() -> <init>
     36:36:android.os.IBinder asBinder() -> asBinder
@@ -19102,42 +19102,54 @@ cn.com.finaldemo.databinding.TaskFragmentBindingImpl -> cn.com.finaldemo.databin
     65:67:boolean onFieldChange(int,java.lang.Object,int) -> onFieldChange
     59:60:boolean setVariable(int,java.lang.Object) -> setVariable
 cn.com.finaldemo.module.home.HomeFragment -> cn.com.finaldemo.module.home.HomeFragment:
-    java.util.HashMap _$_findViewCache -> i
-    19:19:void <init>() -> <init>
+    android.media.MediaPlayer mediaPlayer -> i
+    java.util.HashMap _$_findViewCache -> k
+    cn.com.finaldemo.module.home.HomeFragment$handler$1 handler -> j
+    22:105:void <init>() -> <init>
     void _$_clearFindViewByIdCache() -> a
     android.view.View _$_findCachedViewById(int) -> a
-    19:19:void access$initData(cn.com.finaldemo.module.home.HomeFragment) -> a
-    111:117:void initAnim(androidx.recyclerview.widget.RecyclerView) -> a
-    19:19:void access$showMyStyle(cn.com.finaldemo.module.home.HomeFragment) -> b
-    19:19:cn.com.finaldemo.base.viewmodel.BaseViewModel createViewModel() -> b
-    23:23:cn.com.finaldemo.module.home.HomeViewModel createViewModel() -> b
-    21:21:int getLayoutId() -> c
-    26:31:void initView() -> d
-    34:34:void loadData() -> f
-    59:90:void initData() -> h
-    123:126:void showMyStyle() -> i
-    50:56:void onResume() -> onResume
-    37:47:void setMenuVisibility(boolean) -> setMenuVisibility
+    22:22:cn.com.finaldemo.module.home.HomeFragment$handler$1 access$getHandler$p(cn.com.finaldemo.module.home.HomeFragment) -> a
+    116:127:void play(java.lang.String) -> a
+    148:154:void initAnim(androidx.recyclerview.widget.RecyclerView) -> a
+    22:22:void access$initData(cn.com.finaldemo.module.home.HomeFragment) -> b
+    22:22:cn.com.finaldemo.base.viewmodel.BaseViewModel createViewModel() -> b
+    28:28:cn.com.finaldemo.module.home.HomeViewModel createViewModel() -> b
+    22:22:void access$showMyStyle(cn.com.finaldemo.module.home.HomeFragment) -> c
+    26:26:int getLayoutId() -> c
+    31:36:void initView() -> d
+    39:39:void loadData() -> f
+    24:24:android.media.MediaPlayer getMediaPlayer() -> h
+    69:103:void initData() -> i
+    160:163:void showMyStyle() -> j
+    166:168:void onDestroyView() -> onDestroyView
+    56:66:void onResume() -> onResume
+    42:53:void setMenuVisibility(boolean) -> setMenuVisibility
 cn.com.finaldemo.module.home.HomeFragment$MyAdapter -> cn.com.finaldemo.module.home.HomeFragment$MyAdapter:
-    99:99:void <init>() -> <init>
-    99:99:void convert(com.chad.library.adapter.base.BaseViewHolder,java.lang.Object) -> a
-    101:107:void convert(com.chad.library.adapter.base.BaseViewHolder,java.lang.String) -> a
-cn.com.finaldemo.module.home.HomeFragment$MyPlayerOnCompletionListener -> cn.com.finaldemo.module.home.HomeFragment$a:
+    136:136:void <init>() -> <init>
+    136:136:void convert(com.chad.library.adapter.base.BaseViewHolder,java.lang.Object) -> a
+    138:144:void convert(com.chad.library.adapter.base.BaseViewHolder,java.lang.String) -> a
+cn.com.finaldemo.module.home.HomeFragment$handler$1 -> cn.com.finaldemo.module.home.HomeFragment$a:
     cn.com.finaldemo.module.home.HomeFragment this$0 -> a
-    92:92:void <init>(cn.com.finaldemo.module.home.HomeFragment) -> <init>
-    95:96:void onCompletion(android.media.MediaPlayer) -> onCompletion
+    105:105:void <init>(cn.com.finaldemo.module.home.HomeFragment,android.os.Looper) -> <init>
+    107:112:void handleMessage(android.os.Message) -> handleMessage
 cn.com.finaldemo.module.home.HomeFragment$initData$1 -> cn.com.finaldemo.module.home.HomeFragment$b:
     cn.com.finaldemo.module.home.HomeFragment this$0 -> c
-    61:62:void onClick(android.view.View) -> onClick
+    71:72:void onClick(android.view.View) -> onClick
 cn.com.finaldemo.module.home.HomeFragment$initData$2$1 -> cn.com.finaldemo.module.home.HomeFragment$c:
     cn.com.finaldemo.module.home.HomeFragment$initData$2$1 INSTANCE -> a
-    77:82:void onItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> a
+    88:93:void onItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> a
 cn.com.finaldemo.module.home.HomeFragment$initView$1 -> cn.com.finaldemo.module.home.HomeFragment$d:
     cn.com.finaldemo.module.home.HomeFragment this$0 -> c
-    28:29:void run() -> run
+    33:34:void run() -> run
 cn.com.finaldemo.module.home.HomeFragment$onResume$1 -> cn.com.finaldemo.module.home.HomeFragment$e:
     cn.com.finaldemo.module.home.HomeFragment this$0 -> c
-    54:55:void run() -> run
+    64:65:void run() -> run
+cn.com.finaldemo.module.home.HomeFragment$play$1 -> cn.com.finaldemo.module.home.HomeFragment$f:
+    cn.com.finaldemo.module.home.HomeFragment this$0 -> a
+    120:121:void onPrepared(android.media.MediaPlayer) -> onPrepared
+cn.com.finaldemo.module.home.HomeFragment$play$2 -> cn.com.finaldemo.module.home.HomeFragment$g:
+    cn.com.finaldemo.module.home.HomeFragment$play$2 INSTANCE -> a
+    123:124:boolean onError(android.media.MediaPlayer,int,int) -> onError
 cn.com.finaldemo.module.home.HomeViewModel -> cn.com.finaldemo.module.home.HomeViewModel:
     8:8:void <init>(cn.com.finaldemo.base.activity.IBaseView) -> <init>
     20:20:void cancelJob() -> a

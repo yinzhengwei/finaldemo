@@ -1,6 +1,6 @@
 package cn.com.finaldemo.utils
 
-import cn.com.finaldemo.base.CustomApplication
+import cn.com.finaldemo.base.application.CustomApplication
 
 /**
  * Create by yinzhengwei on 2020-08-12

@@ -1,11 +1,15 @@
-package cn.com.finaldemo.widget
+package cn.com.mediacenter.widget
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.util.AttributeSet
+import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
+import cn.com.mediacenter.utils.NetUtil
 import java.io.File
 
 /**
@@ -38,6 +42,20 @@ class CustomWebView constructor(context: Context, attrs: AttributeSet? = null) :
             //打开网页自动播放视频
             mediaPlaybackRequiresUserGesture = false
 
+            // 启用地理定位,该方法需要配合在WebChromeClient中的onGeolocationPermissionsShowPrompt()回调方法才能起效果
+            setGeolocationEnabled(true)
+
+            CookieManager.getInstance().setAcceptThirdPartyCookies(this@CustomWebView, true)
+
+            //使用系统浏览器下载
+//            setDownloadListener { url, userAgent, contentDisposition, mimeType, contentLength ->
+//                val intent = Intent()
+//                intent.action = Intent.ACTION_VIEW
+//                intent.data = Uri.parse(url)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                context?.startActivity(intent)
+//            }
+
             //自适应屏幕
             layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS// 排版适应屏幕
 //            layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
@@ -47,7 +65,6 @@ class CustomWebView constructor(context: Context, attrs: AttributeSet? = null) :
             savePassword = true
             saveFormData = true// 保存表单数据
             javaScriptEnabled = true
-            setGeolocationEnabled(true)// 启用地理定位
             setAppCachePath(
                 File(
                     context.cacheDir.absolutePath,
@@ -57,7 +74,11 @@ class CustomWebView constructor(context: Context, attrs: AttributeSet? = null) :
             domStorageEnabled = true
             setAppCacheEnabled(true)
             //设置缓存
-            cacheMode = WebSettings.LOAD_DEFAULT
+            cacheMode = if (!NetUtil.isNetworkAvailable(context)) {
+                WebSettings.LOAD_CACHE_ELSE_NETWORK
+            } else {
+                WebSettings.LOAD_DEFAULT
+            }
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                     mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
@@ -72,8 +93,25 @@ class CustomWebView constructor(context: Context, attrs: AttributeSet? = null) :
     }
 }
 
-private fun getFixedContext(context: Context): Context {
-    return if (Build.VERSION.SDK_INT in 21..22) context.createConfigurationContext(
-        Configuration()
-    ) else context
+private fun getFixedContext(context: Context?): Context? {
+    try {
+        val resources = context?.resources ?: return context
+        val configuration = resources.configuration
+
+        if (Build.VERSION.SDK_INT in 21..22)
+            try {
+                return context.createConfigurationContext(Configuration())
+            } catch (e: Exception) {
+            }
+        else if (Build.VERSION.SDK_INT >= 25) {
+            try {
+                val mContext = context.applicationContext.createConfigurationContext(configuration)
+                return mContext.createConfigurationContext(configuration)
+            } catch (e: Exception) {
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return context
 }

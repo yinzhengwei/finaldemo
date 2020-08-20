@@ -2548,6 +2548,7 @@ com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter
 io.reactivex.internal.operators.flowable.FlowableFilter
 io.reactivex.internal.operators.completable.CompletableHide$HideCompletableObserver
 io.reactivex.internal.operators.flowable.FlowablePublish$FlowablePublisher
+cn.com.finaldemo.module.home.HomeFragment$MyPlayerOnCompletionListener
 kotlinx.coroutines.flow.FlowKt__ZipKt$combineTransform$$inlined$combineTransform$2
 io.reactivex.internal.operators.observable.ObservableElementAtMaybe$ElementAtObserver
 retrofit2.Utils$WildcardTypeImpl
