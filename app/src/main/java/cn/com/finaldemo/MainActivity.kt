@@ -21,6 +21,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityModel>() {
     override fun initView() {
         val list = listOf(HomeFragment(), TaskFragment(), MineFragment())
         val adapter = MyFragmentAdapter(list, supportFragmentManager)
+        viewPager.offscreenPageLimit = 2
         viewPager.adapter = adapter
 
         bottom_navigation.forEachIndexed { index, view ->
@@ -31,12 +32,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityModel>() {
     }
 
     override fun loadData() {
-        ToastUtil.showToast(
-            PermissionUtils.isOpenPermisson(
-                this,
-                PermissionList.permission_sdcardRW
-            ).toString()
-        )
+//        ToastUtil.showToast(
+//            PermissionUtils.isOpenPermisson(
+//                this,
+//                PermissionList.permission_sdcardRW
+//            ).toString()
+//        )
     }
 
 }
