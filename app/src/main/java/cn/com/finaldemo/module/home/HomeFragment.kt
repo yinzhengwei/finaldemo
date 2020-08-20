@@ -3,6 +3,9 @@ package cn.com.finaldemo.module.home
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.widget.Toast
@@ -17,6 +20,8 @@ import com.chad.library.adapter.base.BaseViewHolder
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
+
+    val mediaPlayer = MediaPlayer()
 
     override fun getLayoutId() = R.layout.home_fragment
 
@@ -41,7 +46,8 @@ class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
             } else {
                 if (recycler.adapter != null)
                     (recycler.adapter as MyAdapter).setNewData(mutableListOf())
-                videoView.pause()
+                //videoView.pause()
+                mediaPlayer.pause()
             }
         }
     }
@@ -49,9 +55,13 @@ class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
     override fun onResume() {
         super.onResume()
         if (!isMenuVisible) return
-        videoView.start()
+//        videoView.start()
+//        videoView?.postDelayed({
+//            videoView?.seekTo(videoView.duration / 2)
+//        }, 100)
+        mediaPlayer.start()
         videoView?.postDelayed({
-            videoView?.seekTo(videoView.duration / 2)
+            mediaPlayer.seekTo((mediaPlayer.duration / 2))
         }, 100)
     }
 
@@ -66,7 +76,8 @@ class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
         if (recycler.adapter != null) {
             (recycler.adapter as MyAdapter).setNewData(list)
 
-            videoView.seekTo(videoView.duration / 2)
+            //videoView.seekTo(videoView.duration / 2)
+            mediaPlayer.seekTo(mediaPlayer.duration / 2)
             return
         }
         recycler.layoutManager = LinearLayoutManager(activity)
@@ -83,10 +94,36 @@ class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
         }
 
         //播放完成回调
-        videoView.setOnCompletionListener(MyPlayerOnCompletionListener())
-        videoView.setVideoURI(Uri.parse("android.resource://" + activity?.packageName + "/raw/qinghua"));
+        //videoView.setOnCompletionListener(MyPlayerOnCompletionListener())
+        //videoView.setVideoURI(Uri.parse("android.resource://" + activity?.packageName + "/raw/qinghua"));
+
+        play("http://m10.music.126.net/20200819220446/caeb1147524cdcea678f19c16de83b3f/ymusic/0e52/0f53/040e/989b2fb3d98979257a9e3d5ee83e4c9a.mp3")
 
         onResume()
+    }
+
+    private val handler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+
+            mediaPlayer.seekTo((mediaPlayer.duration / 2))
+
+            sendEmptyMessageDelayed(0, 10_000)
+        }
+    }
+
+    private fun play(url: String) {
+        mediaPlayer.setDataSource(url)
+        mediaPlayer.prepare()
+        mediaPlayer.isLooping = true
+        mediaPlayer.setOnPreparedListener {
+            handler.sendEmptyMessageDelayed(0, 10_000)
+        }
+        mediaPlayer.setOnErrorListener { mediaPlayer, _, i ->
+            ToastUtil.showToast("播放出错")
+            true
+        }
+        mediaPlayer.start()
     }
 
     internal inner class MyPlayerOnCompletionListener : MediaPlayer.OnCompletionListener {
@@ -123,6 +160,11 @@ class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
         videoView.pause()
 
         startActivity(Intent(activity, MvActivity::class.java))
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mediaPlayer.release()
     }
 
 }
