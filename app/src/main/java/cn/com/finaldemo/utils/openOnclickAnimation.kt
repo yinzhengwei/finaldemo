@@ -3,6 +3,9 @@ package cn.com.finaldemo.utils
 import android.animation.Animator
 import android.view.View
 import android.view.animation.LinearInterpolator
+import cn.com.finaldemo.R
+import com.jakewharton.rxbinding.view.RxView
+import java.util.concurrent.TimeUnit
 
 /**
  * Create by yinzhengwei on 2020-08-21
@@ -34,4 +37,19 @@ fun openOnclickAnimation(view: View, callback: (() -> Unit)? = null) {
         }
     })
     animatorSet.start()
+}
+
+
+fun addSetOnClickListener(vararg views: View, callback: (View) -> Unit) {
+    views.forEach { view ->
+        RxView.clicks(view).throttleFirst(300, TimeUnit.MILLISECONDS).subscribe {
+            if (!NetUtil.isNetworkAvailable(GmConstans.mInstance)) {
+                ToastUtil.showToast(
+                    GmConstans.mInstance?.getString(R.string.net_error_tip) ?: ""
+                )
+                return@subscribe
+            }
+            callback(view)
+        }
+    }
 }

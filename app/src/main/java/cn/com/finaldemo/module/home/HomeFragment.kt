@@ -12,7 +12,9 @@ import cn.com.finaldemo.R
 import cn.com.finaldemo.base.activity.BaseFragment
 import cn.com.finaldemo.databinding.TaskFragmentBinding
 import cn.com.finaldemo.utils.ToastUtil
+import cn.com.finaldemo.utils.addSetOnClickListener
 import cn.com.finaldemo.utils.launch
+import cn.com.finaldemo.utils.openOnclickAnimation
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -75,15 +77,7 @@ class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
             return
         }
         recycler.layoutManager = LinearLayoutManager(activity)
-        val adapter = MyAdapter().apply {
-            setOnItemClickListener { _, _, position ->
-                if (position == 1) {
-                    ToastUtil.showToast("恭喜你，答对了！")
-                } else {
-                    ToastUtil.showToast("不对哦，继续努力！")
-                }
-            }
-        }
+        val adapter = MyAdapter()
         recycler.adapter = adapter
         adapter.setNewData(list)
 
@@ -130,6 +124,16 @@ class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
                 "2" -> helper.setText(R.id.tv, "青花")
                 "3" -> helper.setText(R.id.tv, "冬天的秘密")
                 "4" -> helper.setText(R.id.tv, "黄昏")
+            }
+
+            addSetOnClickListener(helper.itemView){
+                openOnclickAnimation(helper.itemView){
+                    if (helper.adapterPosition == 1) {
+                        ToastUtil.showToast("恭喜你，答对了！")
+                    } else {
+                        ToastUtil.showToast("不对哦，继续努力！")
+                    }
+                }
             }
         }
     }

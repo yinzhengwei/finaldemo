@@ -80,3 +80,7 @@ NetUtil类是对网络状态的封装，可以直接调用获取网络状态是�
 
 项目中的自定义控件CustomWebView.kt已经将webview需要初始化的属性全部定义好了，可以直接在xml使用，注意需要配合CustomApplication
 中的ApplicationHelper.fixWebViewDataDirectoryBug(this)一起使用
+
+
+16、View点击防抖（含动画）
+项目中引入了rxbinding依赖库，具体使用详见openOnclickAnimation类
