@@ -29,10 +29,10 @@ class HomeFragment : BaseFragment<TaskFragmentBinding, HomeViewModel>() {
     override fun createViewModel() = HomeViewModel(this)
 
     override fun initView() {
-        initData()
     }
 
     override fun loadData() {
+        initData()
     }
 
     override fun setMenuVisibility(menuVisible: Boolean) {

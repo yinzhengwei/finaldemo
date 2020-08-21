@@ -3,6 +3,7 @@ package cn.com.finaldemo.base.activity
 import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,15 +61,32 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
         return mBinding?.root
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
-        if (isVisibleToUser && !isLoadCompleted) {
+    override fun setMenuVisibility(menuVisible: Boolean) {
+        super.setMenuVisibility(menuVisible)
+        Log.d(
+            "BaseFragment",
+            "${this.javaClass.name} ========= setUserVisibleHint  =========  ${menuVisible}  =========  ${isLoadCompleted}"
+        )
+
+        if (menuVisible && !isLoadCompleted) {
             isUIVisible = true
             lazyLoad()
         } else {
             isUIVisible = false
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (isMenuVisible && !isLoadCompleted) {
+            isUIVisible = true
+            lazyLoad()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -80,6 +98,11 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
             // 此处不需要判断isViewCreated，因为这个方法在onCreateView方法之后执行
             lazyLoad()
         }
+
+        Log.d(
+            "BaseFragment",
+            "${this.javaClass.name} =========  onActivityCreated  =========  ${userVisibleHint}  =========  ${isLoadCompleted}"
+        )
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -88,12 +111,17 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
     }
 
     protected fun lazyLoad() {
+        Log.d(
+            "BaseFragment",
+            "${this.javaClass.name} =========  lazyLoad  =========  ${isViewCreated}  =========  ${isUIVisible}"
+        )
+
         //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
         if (isViewCreated && isUIVisible) {
             loadData()
             //数据加载完毕,恢复标记,防止重复加载
-            //            isViewCreated = false;
-            //            isUIVisible = false;
+            isViewCreated = false;
+            isUIVisible = false;
             isLoadCompleted = true
         } else {
             //loadDataEnd()
