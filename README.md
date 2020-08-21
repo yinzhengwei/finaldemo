@@ -83,4 +83,10 @@ NetUtil类是对网络状态的封装，可以直接调用获取网络状态是�
 
 
 16、View点击防抖（含动画）
+
 项目中引入了rxbinding依赖库，具体使用详见openOnclickAnimation类
+
+
+17、RecyclerView初始化
+
+RecyclerViewHelper.kt中对竖列和横列RecyclerView的初始化操作做了封装，可以直接使用
