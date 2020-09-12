@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Build.VERSION_CODES.LOLLIPOP_MR1
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -38,8 +39,10 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
     lateinit var mBinding: T
     lateinit var mViewModel: VM
 
+    private val tag = "BaseActivity===" + this.javaClass.name+": "
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(tag, "onCreate")
         //竖屏
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
@@ -72,8 +75,34 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
 //        }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(tag, "onRestart")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(tag, "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(tag, "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(tag, "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(tag, "onStop")
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(tag, "onDestroy")
         mViewModel.cancelJob()
         unBinding()
     }

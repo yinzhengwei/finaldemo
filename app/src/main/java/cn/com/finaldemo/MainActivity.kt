@@ -1,5 +1,6 @@
 package cn.com.finaldemo
 
+import android.content.Intent
 import androidx.core.view.forEachIndexed
 import cn.com.finaldemo.adapter.MyFragmentAdapter
 import cn.com.finaldemo.base.activity.BaseActivity
@@ -26,7 +27,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityModel>() {
 
         bottom_navigation.forEachIndexed { index, view ->
             view.setOnClickListener {
-                viewPager.currentItem = index
+               // viewPager.currentItem = index
+
+                startActivity(Intent(this,TestActivity::class.java))
             }
         }
     }
