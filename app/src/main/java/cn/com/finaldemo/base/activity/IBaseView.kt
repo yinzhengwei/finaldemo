@@ -14,6 +14,4 @@ interface IBaseView {
     fun requestFinish(params: Any?, result: MutableLiveData<*>?) {}
     fun requestError(msg: String) {}
 
-    //解绑数据
-    fun unBinding()
 }

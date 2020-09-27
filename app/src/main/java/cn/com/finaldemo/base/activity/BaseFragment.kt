@@ -50,6 +50,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
 
         mViewModel = createViewModel()
+        lifecycle.addObserver(mViewModel!!)
 
         //mViewModel = ViewModelProviders.of(this).get(createViewModel()::class.java)
         //mViewModel = defaultViewModelProviderFactory.create(createViewModel())
@@ -130,11 +131,6 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mViewModel?.cancelJob()
-        unBinding()
-    }
-
-    override fun unBinding() {
         mBinding?.unbind()
     }
 

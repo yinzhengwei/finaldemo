@@ -39,7 +39,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
     lateinit var mBinding: T
     lateinit var mViewModel: VM
 
-    private val tag = "BaseActivity===" + this.javaClass.name+": "
+    private val tag = "BaseActivity===" + this.javaClass.name + ": "
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(tag, "onCreate")
@@ -59,6 +59,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
         mViewModel = createViewModel()
+        lifecycle.addObserver(mViewModel)
 
         initView()
 
@@ -103,11 +104,6 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
     override fun onDestroy() {
         super.onDestroy()
         Log.d(tag, "onDestroy")
-        mViewModel.cancelJob()
-        unBinding()
-    }
-
-    override fun unBinding() {
         mBinding.unbind()
     }
 

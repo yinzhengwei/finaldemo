@@ -1,13 +1,14 @@
 package cn.com.finaldemo.base.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.util.Log
+import androidx.lifecycle.*
+import cn.com.finaldemo.base.activity.IBaseView
 
 /**
  *  Created by yinzhengwei on 2020-02-07.
  *  @Function
  */
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel(var mView: IBaseView?) : ViewModel(), LifecycleEventObserver {
 
     //网络请求
     abstract fun <T> loadData(params: T?)
@@ -21,4 +22,11 @@ abstract class BaseViewModel : ViewModel() {
     //取消任务
     abstract fun cancelJob()
 
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        Log.i("setting", "event=" + event.name)
+        if (event.name == "ON_DESTROY") {
+            cancelJob()
+            mView = null
+        }
+    }
 }

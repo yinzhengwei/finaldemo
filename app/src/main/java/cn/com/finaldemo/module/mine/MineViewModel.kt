@@ -5,7 +5,11 @@ import androidx.lifecycle.ViewModel
 import cn.com.finaldemo.base.activity.IBaseView
 import cn.com.finaldemo.base.viewmodel.BaseViewModel
 
-class MineViewModel (private var mView: IBaseView) : BaseViewModel() {
+/**
+ * 注意：为了防止内存泄漏，这里请求完数据后回调主页时需引用BaseViewModel中的成员变量mView
+ *
+ */
+class MineViewModel (private var view: IBaseView) : BaseViewModel(view) {
     override fun <T> loadData(params: T?) {
 
     }
